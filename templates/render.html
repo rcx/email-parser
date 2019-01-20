@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+{% if hdr_from -%}
+  <title>{{ hdr_from }}</title>
+{% else -%}
+	<title>Email parser</title>
+{%- endif %}
+<body>
+
+<h1>Email parser</h1>
+<a href="/">Home</a>
+<hr>
+
+<b>From:</b>
+{% if hdr_from -%}
+  {{ hdr_from }}
+{% else -%}
+  <i>(missing)</i>
+{%- endif %}
+<br>
+
+<b>To:</b>
+{% if hdr_to -%}
+  {{ hdr_to }}
+{% else -%}
+  <i>(missing)</i>
+{%- endif %}
+<br>
+
+<b>Date:</b>
+{% if hdr_date -%}
+  {{ hdr_date }}
+{% else -%}
+  <i>(missing)</i>
+{%- endif %}
+<br>
+
+<b>Subject:</b>
+{% if hdr_subject -%}
+  {{ hdr_subject }}
+{% else -%}
+  <i>(missing)</i>
+{%- endif %}
+<br>
+
+{% if attachments -%}
+<b>Attachments:</b>
+{% for attachment in attachments -%}
+{{ attachment }}
+{%- endfor %}
+{% else -%}
+{%- endif %}
+
+<br>
+
+{% if body_content -%}
+{% if content_type == 'plain' -%} <pre> {%- endif %}
+{{ body_content|safe }}
+{% if content_type == 'plain' -%} </pre> {%- endif %}
+{% else -%}
+<i>(missing body)</i>
+{%- endif %}
+
+<hr>
+<form action="/" method="POST">
+	<input type="submit" value="Submit"><br>
+<textarea name="smtpdata" cols=80 rows=40>{{raw_data}}</textarea><br>
+</form>
+</body>
+</html>
