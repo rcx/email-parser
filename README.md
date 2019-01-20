@@ -7,6 +7,17 @@ This is a simple Flask webapp that just parses raw email data and renders a webp
 ## Try it online
 https://tcpb.in:5000
 
+## Setup
+```
+git clone https://github.com/ecx86/email-parser
+cd email-parser
+sudo pip3 install -r requirements.txt
+export FLASK_APP=app.py
+python3 -m flask run
+```
+
+Note that it's better to run it under wsgi if you're hosting it permanently.
+
 ## Example
 ![Example screenshot](example.png)
 
@@ -97,14 +108,3 @@ lol=0D
 Best regards, <br />=0D
 Team Namecheap=
 ```
-
-## Setup
-```
-git clone https://github.com/ecx86/email-parser
-cd email-parser
-sudo pip3 install -r requirements.txt
-export FLASK_APP=app.py
-python3 -m flask run
-```
-
-Note that it's better to run it under wsgi if you're hosting it permanently.
