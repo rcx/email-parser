@@ -10,6 +10,9 @@ from email import policy
 from email.parser import BytesParser
 
 def render_smtp(smtpdata):
+    print(repr(smtpdata))
+    if (smtpdata.startswith('EHLO ') or smtpdata.startswith('HELO ')) and '\r\nDATA\r\n' in smtpdata:
+        smtpdata = smtpdata[smtpdata.find('\r\nDATA\r\n')+8:]
     msg = BytesParser(policy=policy.default).parsebytes(bytes(smtpdata, 'utf-8'))
     msg_body = msg.get_body(preferencelist=('html','plain'))
     content_type = msg_body['content-type']
